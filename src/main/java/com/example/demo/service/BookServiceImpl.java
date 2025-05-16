@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.exception.BookException;
@@ -14,13 +15,8 @@ import com.example.demo.repository.BookRepository;
 @Service
 public class BookServiceImpl  implements BookService{
 
-    private final GlobalExceptHandler globalExceptHandler;
-
-    BookServiceImpl(GlobalExceptHandler globalExceptHandler) {
-        this.globalExceptHandler = globalExceptHandler;
-    }
-
     @Autowired
+    @Qualifier("bookRepositoryJdbcImpl")  //指定實現類，看要哪一個repository，@primary有可能會遺忘之前在哪裡設定
 	private BookRepository bookRepository;
 	
 	@Override
